@@ -1,7 +1,10 @@
 <template>
   <div>
     <home-header></home-header>
-    <home-swiper></home-swiper>
+    <home-swiper :swiperList='swiperList'></home-swiper>
+    <home-icon :iconList='iconList'></home-icon>
+    <home-recommend :recommendList="recommendList"></home-recommend>
+    <home-weekend :weekendList="weekendList"></home-weekend>
   </div>
 </template>
 
@@ -9,11 +12,45 @@
 // @ is an alias to /src
 import HomeHeader from './components/Header'
 import HomeSwiper from './components/Swiper'
+import HomeIcon from './components/Icons'
+import HomeRecommend from './components/Recommend'
+import HomeWeekend from './components/Weekend'
+import axios from 'axios'
 export default {
   name: 'Home',
   components: {
     HomeHeader,
-    HomeSwiper
+    HomeSwiper,
+    HomeIcon,
+    HomeRecommend,
+    HomeWeekend
+  },
+  data () {
+    return {
+      iconList: [],
+      swiperList: [],
+      recommendList: [],
+      weekendList: []
+    }
+  },
+  mounted () {
+    this.getHomeInfo()
+  },
+  methods: {
+    getHomeInfo () {
+      axios.get('/api/index.json').then(this.getHomeInfoSucc)
+    },
+    getHomeInfoSucc (res) {
+      res = res.data;
+      if (res.ret) {
+        let data = res.data;
+        this.iconList=data.iconList
+        this.swiperList=data.swiperList
+        this.recommendList = data.recommendList
+        this.weekendList = data.weekendList
+        console.log(res.data)
+      }
+    }
   }
 }
 </script>
