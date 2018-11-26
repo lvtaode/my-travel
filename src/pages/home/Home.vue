@@ -2,7 +2,6 @@
   <div>
     <home-header></home-header>
     <home-swiper></home-swiper>
-    <div>text</div>
   </div>
 </template>
 
@@ -20,4 +19,5 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
+
 </style>
